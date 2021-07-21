@@ -1,6 +1,6 @@
 import '../css/style.css';
 
-const todos = [{
+let todos = [{
   index: 4,
   description: 'todo 4',
   completed: true,
@@ -16,7 +16,7 @@ const todos = [{
   completed: true,
 },
 ];
-function sortBooks() {
+function sortList() {
   todos.sort((todoA, todoB) => {
     if (todoA.index < todoB.index) {
       return -1;
@@ -27,8 +27,8 @@ function sortBooks() {
     return 0;
   });
 }
-function displayBooks() {
-  sortBooks();
+function displayList() {
+  sortList();
   const section = document.getElementById('todos');
   const list = document.createElement('ul');
   list.id = 'list';
@@ -49,4 +49,19 @@ function displayBooks() {
   section.innerHTML = '';
   section.appendChild(list);
 }
-displayBooks();
+function updateLocalStorage(update) {
+  const listFromStorage = window.localStorage.getItem('todos');
+  sortList();
+  if (update) {
+    // update local storage
+    window.localStorage.setItem('todos', JSON.stringify(todos));
+  } else if (listFromStorage != null) {
+    // get data from local storage
+    todos = JSON.parse(window.localStorage.getItem('todos'));
+  } else {
+    // inialize local storage
+    window.localStorage.setItem('todos', JSON.stringify(todos));
+  }
+  displayList();
+}
+updateLocalStorage();
