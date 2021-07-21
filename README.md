@@ -18,7 +18,7 @@ To get a local copy up and running follow these simple steps.
 1. Clone the project 
   `$ git clone https://github.com/ahzia/Coworking-Space-Directory`
 2. Install dependencies `$ npm install`
-3. If you want to build the project `$ npm start` - this will build the project in /dist folder
+3. If you want to build the project `$ npm run build` - this will build the project in /dist folder
 4. Start the Project `$ npm start` - serve the project in browser
 
 ### Prerequisites
