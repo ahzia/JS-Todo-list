@@ -52,6 +52,7 @@ function displayList() {
   });
   section.innerHTML = '';
   section.appendChild(list);
+  // eslint-disable-next-line no-use-before-define
   addCheckboxChangeEventListeners(todos);
 }
 
