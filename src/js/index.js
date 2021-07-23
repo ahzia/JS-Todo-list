@@ -1,23 +1,23 @@
 import '../css/style.css';
-import list from './list.js';
+import List from './list.js';
 import getDragAfterElement from './drag.js';
 
-const newList = new list();
+const NewList = new List();
 const eventListener = () => {
   document.querySelector('ul').onclick = (event) => {
     const { target } = event;
     const { id } = target;
     if (id.includes('idel')) {
       const divId = (id).replace('idel', '');
-      newList.remove(divId);
+      NewList.remove(divId);
       eventListener();
     } else if (id.includes('del')) {
       const divId = (id).replace('del', '');
-      newList.remove(divId);
+      NewList.remove(divId);
       eventListener();
     } else if (id.includes('ch')) {
       const index = id.replace('ch', '');
-      newList.updateStatus(index);
+      NewList.updateStatus(index);
     } else if (id.includes('in')) {
       const input = document.getElementById(id);
       const index = id.replace('in', '');
@@ -49,7 +49,7 @@ const eventListener = () => {
       input.classList.add('inFocus');
       input.addEventListener('change', (e) => {
         const { value } = e.target;
-        newList.update(index, value);
+        NewList.update(index, value);
       });
     }
   };
@@ -77,8 +77,8 @@ const eventListener = () => {
   });
   container.addEventListener('drop', (event) => {
     event.preventDefault();
-    newList.arrangeTodos();
-    newList.updateLocalStorage(true, true);
+    NewList.arrangeTodos();
+    NewList.updateLocalStorage(true, true);
     // reload the page to refresh the event EventListener
     eventListener();
   }, false);
@@ -90,13 +90,13 @@ document.addEventListener('DOMContentLoaded', () => {
   addButton.addEventListener('click', () => {
     const text = document.getElementById('todoInput').value;
     if (text !== '') {
-      newList.addNew(text);
+      NewList.addNew(text);
       eventListener();
     }
   });
   const clearAllButton = document.getElementById('clearAll');
   clearAllButton.addEventListener('click', () => {
-    newList.clearAll();
+    NewList.clearAll();
     eventListener();
   });
 });
