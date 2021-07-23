@@ -18,6 +18,22 @@ export default class todoList {
 
   remove(index) {
     this.todos.splice(index, 1);
+    this.updateIndex();
+    this.updateLocalStorage(true, false);
+  }
+
+  update(index, value) {
+    this.todos[index].description = value;
+    this.updateLocalStorage(true, false, false);
+  }
+
+  clearAll() {
+    this.todos = this.todos.filter((todo) => !todo.completed);
+    this.updateIndex();
+    this.updateLocalStorage(true, false, true);
+  }
+
+  updateIndex() {
     const temp = [];
     let counter = 0;
     this.todos.forEach((item) => {
@@ -30,12 +46,6 @@ export default class todoList {
       counter += 1;
     });
     this.todos = temp;
-    this.updateLocalStorage(true, false);
-  }
-
-  update(index, value) {
-    this.todos[index].description = value;
-    this.updateLocalStorage(true, false, false);
   }
 
   sortList() {
