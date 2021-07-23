@@ -16,6 +16,23 @@ export default class todoList {
     this.updateLocalStorage(true, true);
   }
 
+  remove(index) {
+    this.todos.splice(index, 1);
+    const temp = [];
+    let counter = 0;
+    this.todos.forEach((item) => {
+      const todo = {
+        index: counter,
+        description: item.description,
+        completed: item.completed,
+      };
+      temp.push(todo);
+      counter += 1;
+    });
+    this.todos = temp;
+    this.updateLocalStorage(true, false);
+  }
+
   sortList() {
     this.todos.sort((todoA, todoB) => {
       if (todoA.index < todoB.index) {
@@ -41,9 +58,9 @@ export default class todoList {
       const deleteDiv = `del${index}`;
       let todoCard = `<li id=${liId} class="todo draggable" draggable="true"><div class="todoContent">`;
       if (completed) {
-        todoCard += `<input type="checkbox" name="todoCheck" checked id="${checkboxId}">`;
+        todoCard += `<input type="checkbox" name="todoCheck" class="todoCheck" checked id="${checkboxId}">`;
       } else {
-        todoCard += `<input type="checkbox" name="todoCheck" id="${checkboxId}">`;
+        todoCard += `<input type="checkbox" name="todoCheck" class="todoCheck" id="${checkboxId}">`;
       }
       todoCard += `
         <input class="description" id="${inputId}" value="${description}">
@@ -51,8 +68,8 @@ export default class todoList {
         <div id="${moveDiv}" class="draggableAria">
           <i class="fas fa-ellipsis-v"></i>
         <div>
-        <div id="${deleteDiv}" class=" deleteDiv hidden">
-          <i class="fas fa-trash-alt"></i>
+        <div id="${deleteDiv}" class="deleteDiv hidden">
+          <i id="i${deleteDiv}" class="fas fa-trash-alt"></i>
         <div>
         </li>`;
       list.insertAdjacentHTML('beforeend', todoCard);
@@ -60,7 +77,6 @@ export default class todoList {
     section.innerHTML = '';
     section.appendChild(list);
     // eslint-disable-next-line no-use-before-define
-    this.addCheckboxChangeEventListeners(this.todos);
   }
 
   updateLocalStorage(update, sort, display = true) {
@@ -89,16 +105,6 @@ export default class todoList {
     this.updateLocalStorage(true, false, false);
   }
 
-  addCheckboxChangeEventListeners() {
-    const checkboxes = document.querySelectorAll('input[type=checkbox][name=todoCheck]');
-    checkboxes.forEach((checkbox) => {
-      checkbox.addEventListener('change', (event) => {
-        const index = (event.target.id).replace('ch', '');
-        this.updateStatus(index);
-      });
-    });
-  }
-
   arrangeTodos() {
     const container = document.getElementById('list');
     const children = container.childNodes;
@@ -107,7 +113,7 @@ export default class todoList {
     const temp = [];
     childarray.forEach((item) => {
       const { id } = item;
-      let newIndex = ((id).replace('li', '')).replace('li', '');
+      const newIndex = ((id).replace('li', '')).replace('li', '');
       // newIndex = (newIndex).replace('li', '');
       const todo = {
         index,
