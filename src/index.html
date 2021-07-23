@@ -20,19 +20,21 @@
         <div class="input">
             <input type="text" id="todoInput" class="todoInput" placeholder="Add to your list">
             <div class="icon" id="add">
-            <i class="fas fa-plus"></i></div>
+                <i class="fas fa-plus"></i></div>
         </div>
         <hr>
         <div id="todos" class="todos"></div>
         <div class="clearAll">
-            <a href="#">Clear all completed</a>
+            <a href="#" id="clearAll" >Clear all completed</a>
         </div>
     </main>
     <!-- Font Awesome JS-->
     <script type="text/javascript">
-        // Notice how this gets configured before we load Font Awesome
-        window.FontAwesomeConfig = { autoReplaceSvg: false }
-      </script>
+        // this gets configured before we load Font Awesome
+        window.FontAwesomeConfig = {
+            autoReplaceSvg: false
+        }
+    </script>
     <script defer src="https://use.fontawesome.com/releases/v5.1.1/js/all.js" integrity="sha384-BtvRZcyfv4r0x/phJt9Y9HhnN5ur1Z+kZbKVgzVBAlQZX4jvAuImlIz+bG7TS00a" crossorigin="anonymous"></script>
 
 </body>
