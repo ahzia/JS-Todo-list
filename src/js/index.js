@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
   eventListener();
   const addButton = document.getElementById('add');
   addButton.addEventListener('click', () => {
-    const input = document.getElementById('todoInput')
+    const input = document.getElementById('todoInput');
     const text = input.value;
     if (text !== '') {
       NewList.addNew(text);
